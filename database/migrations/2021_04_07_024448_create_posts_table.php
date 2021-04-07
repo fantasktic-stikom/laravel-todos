@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->integer('organization_id')->nullable();
             $table->integer('user_id')->nullable();
+            $table->string('uuid')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->datetime('deadline')->nullable();
