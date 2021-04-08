@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Post::isOrganization()->isNotDeleted()->paginate(2);
+        $data = Post::isOrganization()->isNotDeleted()->get();
 
         return view('home', compact('data'));
     }

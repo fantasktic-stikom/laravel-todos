@@ -20,10 +20,17 @@
                <div class="col-md-12 ">
                    <a href="{{url()->previous()}}" class="text-black"><small><i class="fa fa-long-arrow-alt-left" ></i> Kembali</small></a>
                    <h4 class="mt-2">{{$todos->name}}</h4>
-                   {!!$todos->description!!}
-                   <br>
+                   @if ($todos->description != null)
+                        {!!$todos->description!!}
+                   @else 
+                        Belum ada deskripsi
+                   @endif
+                   
                    <br>
                    <small>
+                   @if($todos->category->count() > 0)
+                   <br>
+                   
                     <b>Kategori : </b>  <br>
                     @foreach ($todos->category as $item)
                         @if ($item->category)
@@ -35,7 +42,7 @@
                         @endif
                         
                     @endforeach
-           
+                    @endif
                     <br>
                     <b>Dibuat pada : </b>{{\App\Helpers\Time::showDateTime($todos->created_at)}} <br>
                     <b>Deadline : </b>{{\App\Helpers\Time::showDateTime($todos->deadline)}}

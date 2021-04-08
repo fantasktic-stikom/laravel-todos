@@ -20,6 +20,21 @@
                     </div>
                </div>
                @else
+               @if(\Session::has('success'))
+                    
+                      <div class="col-md-12">
+                          <br>
+                       
+                          <div class="alert alert-success alert-dismissible fade show">
+                            {{\Session::get('success')}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                    
+                      </div>
+       
+                @endif
 
                <div class="col-md-12">
                     @foreach ($data as $item)

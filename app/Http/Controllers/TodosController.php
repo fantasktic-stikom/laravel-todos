@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Http\Requests\TodosRequests;
+use App\Helpers\Message;
+use Uuid;
+use Auth;
 
 class TodosController extends Controller
 {
 
+    use Message;
     protected $view = 'pages.todos.';
 
     /**
@@ -37,9 +42,18 @@ class TodosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodosRequests $request)
     {
-        return $request->all();
+        $data = new Post();
+        $data->name = $request->name;
+        $data->user_id = Auth::user()->id;
+        $data->organization_id = Auth::user()->organization_id;
+        $data->description = $request->description;
+        $data->deadline = date('Y-m-d H:i:s', strtotime($request->deadline));
+        $data->uuid = Uuid::generate(4);
+        $data->save();
+
+        return redirect()->route('home')->with('success', $this->SUCCESS_ADD);
     }
 
     /**

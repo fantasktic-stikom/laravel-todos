@@ -9,19 +9,35 @@
                    <a href="{{url()->previous()}}" class="text-black"><small><i class="fa fa-long-arrow-alt-left" ></i> Kembali</small></a>
                    <h4 class="mt-2">@if($todos->exists) Edit @else Tambah @endif Todo</h4>
                    <hr>
+                   @if (count($errors) > 0)
+                   <div class="row">
+                     <div class="col-md-12">
+                       <small>
+                         <div class="alert alert-danger alert-dismissible fade show">
+                                             @foreach ($errors->all() as $error)
+                                                 <li>{{ $error }}</li>
+                                             @endforeach
+                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                         </div>
+                       </small>
+                     </div>
+                   </div>
+                   @endif
                     <form action="@if($todos->exists) {{route('todos.update', $todos->uuid)}} @else {{route('todos.store')}} @endif" method="POST">
                         @method("POST")
                         @csrf
                         <div class="form-group">
-                            <label for="">Nama</label>
-                            <input type="text" required name="name" value="{{old('name', $todos->name)}}" class="form-control">
+                            <label for="">Nama <span class="text-danger">*</span></label>
+                            <input type="text"  name="name" value="{{old('name', $todos->name)}}" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Deskripsi</label>
-                            <textarea name="description" required class="form-control">{{old('description', $todos->description)}}</textarea>
+                            <textarea name="description"  class="form-control">{{old('description', $todos->description)}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="">Deadline</label>
+                            <label for="">Deadline <span class="text-danger">*</span></label>
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                                     <input type="text" name="deadline" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
