@@ -27,7 +27,8 @@ class TodosController extends Controller
      */
     public function create()
     {
-        //
+        $todos = new Post();
+        return view($this->view.'form', compact('todos'));
     }
 
     /**
@@ -38,7 +39,7 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
@@ -61,7 +62,8 @@ class TodosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todos = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        return view($this->view.'form', compact('todos'));
     }
 
     /**

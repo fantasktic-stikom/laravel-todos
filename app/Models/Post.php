@@ -42,4 +42,9 @@ class Post extends Model
         return $msg;
     }
 
+    public function category()
+    {
+        return $this->hasMany('App\Models\PostCategory');
+    }
+
 }

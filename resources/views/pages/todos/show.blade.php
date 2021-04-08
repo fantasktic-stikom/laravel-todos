@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('head')
+    <style>
+        .category-item {
+            display: inline-block;
+            border: 1px solid #333;
+            padding: 3px 6px;
+            border-radius: 20px;
+            margin: 1px 1px 1px 0;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -12,6 +24,19 @@
                    <br>
                    <br>
                    <small>
+                    <b>Kategori : </b>  <br>
+                    @foreach ($todos->category as $item)
+                        @if ($item->category)
+                            <a href="" class="text-black">
+                                <div class="category-item">
+                                    {{$item->category->name}}
+                                </div>
+                            </a>
+                        @endif
+                        
+                    @endforeach
+           
+                    <br>
                     <b>Dibuat pada : </b>{{\App\Helpers\Time::showDateTime($todos->created_at)}} <br>
                     <b>Deadline : </b>{{\App\Helpers\Time::showDateTime($todos->deadline)}}
                    </small>

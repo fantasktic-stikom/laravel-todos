@@ -10,7 +10,7 @@
                    <p>Catat dan jadwalkan sesuatu.</p>
                </div>
                <div class="col-md-12">
-                   <a href="" class="btn btn-blue btn-block">Tambah</a>
+                   <a href="{{route('todos.create')}}" class="btn btn-blue btn-block">Tambah</a>
                </div>
                @if($data->count() == 0)
                <div class="col-md-12 text-center ">

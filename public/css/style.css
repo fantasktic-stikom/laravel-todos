@@ -20,6 +20,13 @@ p, a.text-black{
 }
 
 
+.btn-blue{
+    background-color: #5777ba !important;
+    border-color: #5777ba !important;
+    color: #fff !important;
+}
+
+
 
 .card-list-item h6 {
     margin-bottom: 2px;
