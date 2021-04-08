@@ -44,6 +44,7 @@
                     @endforeach
                     @endif
                     <br>
+                    {!!$todos->getStatus()!!} <br>
                     <b>Dibuat pada : </b>{{\App\Helpers\Time::showDateTime($todos->created_at)}} <br>
                     <b>Deadline : </b>{{\App\Helpers\Time::showDateTime($todos->deadline)}}
                    </small>
@@ -52,7 +53,10 @@
                    <form action="{{route('todos.destroy', $todos->uuid)}}" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
                        @method("DELETE")
                        @csrf
-                       <a href="{{route('todos.done', $todos->uuid)}}" class="btn btn-block btn-sm btn-success mb-2"><i class="fa fa-check"></i> Done</a>
+
+                       @if($todos->status != 10)
+                            <a href="{{route('todos.done', $todos->uuid)}}" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Done</a>
+                       @endif 
                        <a href="{{route('todos.edit', $todos->uuid)}}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Edit</a> 
                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
                        
