@@ -65,6 +65,9 @@ class TodosController extends Controller
     public function show($id)
     {
         $todos = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$todos) {
+            return view('pages.404');
+        }
         return view($this->view.'show', compact('todos'));
     }
 
@@ -77,6 +80,9 @@ class TodosController extends Controller
     public function edit($id)
     {
         $todos = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$todos) {
+            return view('pages.404');
+        }
         return view($this->view.'form', compact('todos'));
     }
 
@@ -87,9 +93,19 @@ class TodosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TodosRequests $request, $id)
     {
-        //
+        $todos = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$todos) {
+            return view('pages.404');
+        }
+
+        $todos->name = $request->name;
+        $todos->description = $request->description;
+        $todos->deadline = date('Y-m-d H:i:s', strtotime($request->deadline));
+        $todos->save();
+
+        return redirect()->route('home')->with('success', $this->SUCCESS_UPDATE);
     }
 
     /**

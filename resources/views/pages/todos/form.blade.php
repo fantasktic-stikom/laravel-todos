@@ -26,7 +26,12 @@
                    </div>
                    @endif
                     <form action="@if($todos->exists) {{route('todos.update', $todos->uuid)}} @else {{route('todos.store')}} @endif" method="POST">
-                        @method("POST")
+                        
+                        @if($todos->exists)
+                            @method("PUT")
+                        @else
+                            @method("POST")
+                        @endif
                         @csrf
                         <div class="form-group">
                             <label for="">Nama <span class="text-danger">*</span></label>
@@ -39,8 +44,9 @@
                         <div class="form-group">
                             <label for="">Deadline <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                                    <input type="text" name="deadline" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                                
+                                <div class="input-group date" id="datetimepicker2"  data-target-input="nearest">
+                                    <input type="text" name="deadline" class="form-control datetimepicker-input" @if($todos->deadline != null) value="{{date("m/d/Y h.i A", strtotime($todos->deadline))}}" @endif data-target="#datetimepicker2"/>
                                     <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
