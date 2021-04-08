@@ -95,15 +95,15 @@ class TodosController extends Controller
      */
     public function update(TodosRequests $request, $id)
     {
-        $todos = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
-        if(!$todos) {
+        $data = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$data) {
             return view('pages.404');
         }
 
-        $todos->name = $request->name;
-        $todos->description = $request->description;
-        $todos->deadline = date('Y-m-d H:i:s', strtotime($request->deadline));
-        $todos->save();
+        $data->name = $request->name;
+        $data->description = $request->description;
+        $data->deadline = date('Y-m-d H:i:s', strtotime($request->deadline));
+        $data->save();
 
         return redirect()->route('home')->with('success', $this->SUCCESS_UPDATE);
     }
@@ -116,6 +116,27 @@ class TodosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$data) {
+            return view('pages.404');
+        }
+
+        $data->status = -1;
+        $data->save();
+
+        return redirect()->route('home')->with('success', $this->SUCCESS_DELETE);
+    }
+
+    public function done($id)
+    {
+        $data = Post::where('uuid', $id)->isOrganization()->isNotDeleted()->first();
+        if(!$data) {
+            return view('pages.404');
+        }
+
+        $data->status = 10;
+        $data->save();
+        
+        return redirect()->route('home')->with('success', $this->SUCCESS_UPDATE);
     }
 }

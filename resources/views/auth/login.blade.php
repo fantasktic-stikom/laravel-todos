@@ -44,11 +44,11 @@
                         Daftar
                     </a>
                     <hr>
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                         <a class="btn btn-link text-white" href="{{ route('password.request') }}">
                             Lupa Password
                         </a>
-                    @endif
+                    @endif --}}
                 </div>
             </form>
 

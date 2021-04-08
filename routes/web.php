@@ -22,5 +22,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware'=>'auth'], function(){
+    Route::get('todos/{id}/done', [TodosController::class, 'done'])->name('todos.done');
     Route::resource('todos', TodosController::class, ['names'=>'todos']);
 });

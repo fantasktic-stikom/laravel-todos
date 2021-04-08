@@ -48,7 +48,15 @@
                     <b>Deadline : </b>{{\App\Helpers\Time::showDateTime($todos->deadline)}}
                    </small>
                    <br> <br>
-                   <a href="{{route('todos.edit', $todos->uuid)}}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                   
+                   <form action="{{route('todos.destroy', $todos->uuid)}}" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
+                       @method("DELETE")
+                       @csrf
+                       <a href="{{route('todos.done', $todos->uuid)}}" class="btn btn-block btn-sm btn-success mb-2"><i class="fa fa-check"></i> Done</a>
+                       <a href="{{route('todos.edit', $todos->uuid)}}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Edit</a> 
+                       <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
+                       
+                   </form>
                </div>
                
 
